@@ -75,6 +75,27 @@ def assign_grade(github, title, grade):
     print "Successfully assigned grade of %s for %s in %s" % (
         grade, github, title)
 
+def get_grade_by_student(first_name):
+    """Get all of a student's grades, line by line."""
+
+    QUERY = """
+        SELECT g.project_title, g.grade 
+        FROM Students AS s JOIN Grades AS g 
+        ON s.github = g.student_github
+        WHERE s.first_name = ?
+    """
+
+    db_cursor.execute(QUERY, (first_name,))
+    row = db_cursor.fetchall()
+    return_list = []
+    
+    if row != []:
+        for project in row:
+            return_list.append(project) #may need to .append
+        return return_list
+    else:
+        print 'Please try again and enter a FIRST NAME'
+
 
 def handle_input():
     """Main loop.
