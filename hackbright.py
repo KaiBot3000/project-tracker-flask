@@ -47,7 +47,8 @@ def get_project_by_title(title):
         """
     db_cursor.execute(QUERY, (title,))
     row = db_cursor.fetchone()
-    print "Title: %s\nDescription: %s\nMax Grade: %d" % row
+    # row = [title, desctiption, max_grade]
+    return row
 
 
 def get_grade_by_github_title(github, title):
@@ -95,6 +96,19 @@ def get_grade_by_student(first_name):
         return return_list
     else:
         print 'Please try again and enter a FIRST NAME'
+
+def get_grades_by_project(title):
+    """Get all of the grades for a project by student."""
+
+    QUERY = """
+        SELECT first_name, grade 
+        FROM Students JOIN Grades 
+        ON github = student_github
+        WHERE project_title = ?
+    """
+
+    db_cursor.execute(QUERY, (title,))
+    return db_cursor.fetchall() #returns list of tuples with first name, grade info
 
 
 def handle_input():
