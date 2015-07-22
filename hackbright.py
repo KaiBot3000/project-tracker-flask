@@ -102,7 +102,7 @@ def get_grades_by_project(title):
 
     QUERY = """
         SELECT first_name, grade 
-        FROM Students JOIN Grades 
+        FROM Students JOIN Grades
         ON github = student_github
         WHERE project_title = ?
     """
